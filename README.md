@@ -8,7 +8,7 @@ Swagger,
 
 Example of usage is implemented in TestController class
 
-Master branch will contain only the basic features. If u want to include some other feature, you can marge with other branches contained specyfied features. 
+Master branch will contain only the basic features. If u want to include some other feature, you can merge with other branches contained specyfied features. 
 
 
 Currently TO DO:
