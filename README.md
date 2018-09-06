@@ -12,7 +12,6 @@ Master branch will contain only the basic features. If u want to include some ot
 
 
 Currently TO DO:
-- translate exception (globalization)
 - separate logs by envirovment name 
 - new branch with windows authentication, generating JWT token etc
 - new branch with basic authentication, generating JWT token etc
