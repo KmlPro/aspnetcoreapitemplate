@@ -32,7 +32,7 @@ namespace APITemplate.Controllers
             var parameters = AssemblyHelper.GetPropertiesWithValues(query);
             var queryNumber = Guid.NewGuid();
 
-            Log.Information($"GUID: {queryNumber}. Wywołanie query: {actionDecription} z parametrami: {parameters}");
+            Log.Information($"GUID: {queryNumber}. Execute query: {actionDecription} z parameters: {parameters}");
 
             try
             {
@@ -40,16 +40,16 @@ namespace APITemplate.Controllers
             }
             catch (ValidationException ex)
             {
-                Log.Debug($"Błąd walidacji query: {actionDecription} z parametrami: {parameters}. Lista błedów: {string.Join(" ,", ex.Result.Messages)}");
-                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Lista błedów: {string.Join(" ,", ex.Result.Messages) }");
+                Log.Debug($"Query validation error: {actionDecription} with parameters: {parameters}. Validation Errors: {string.Join(" ,", ex.Result.Messages)}");
+                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Validation Errors: {string.Join(" ,", ex.Result.Messages) }");
             }
             catch (Exception ex)
             {
-                Log.Fatal($"Błąd serwera przy wywołaniu query: {actionDecription} z parametrami: {parameters}. Wyjątek: {ex}");
-                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Wyjątek: {ex}.");
+                Log.Fatal($"Internal server error on query: {actionDecription} with parameters: {parameters}. Exception: {ex}");
+                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Exception: {ex}.");
             }
 
-            Log.Information($"GUID: {queryNumber}. Zakończono wywołanie query: {actionDecription} z parametrami: {parameters}");
+            Log.Information($"GUID: {queryNumber}. Query executed correctly: {actionDecription} with parameters: {parameters}");
             return result;
         }
 
@@ -60,7 +60,7 @@ namespace APITemplate.Controllers
 
             var commandNumber = Guid.NewGuid();
 
-            Log.Information($"GUID: {commandNumber}. Wywołanie command: {actionDecription} z parametrami: {parameters}");
+            Log.Information($"GUID: {commandNumber}. Execute command: {actionDecription} with parameters: {parameters}");
 
             try
             {
@@ -68,16 +68,16 @@ namespace APITemplate.Controllers
             }
             catch (ValidationException ex)
             {
-                Log.Warning($"Błąd walidacji command: {actionDecription} z parametrami: {parameters}. Lista błedów: {string.Join(" ,", ex.Result.Messages)}");
-                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Lista błedów: {string.Join(" ,", ex.Result.Messages) }");
+                Log.Warning($"Command validation error: {actionDecription} with parameters: {parameters}. Validation errors: {string.Join(" ,", ex.Result.Messages)}");
+                throw new HttpStatusCodeException(StatusCodes.Status409Conflict, $"Validation errors: {string.Join(" ,", ex.Result.Messages) }");
             }
             catch (Exception ex)
             {
-                Log.Fatal($"Błąd serwera przy wywołaniu command: {actionDecription} z parametrami: {parameters}. Wyjątek: {string.Join(" ,", ex.InnerException.ToString())}");
-                throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Wyjątek: {ex}.");
+                Log.Fatal($"Internal server error on query: {actionDecription} with parameters: {parameters}. Exception: {string.Join(" ,", ex.InnerException.ToString())}");
+                throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Exception: {ex}.");
             }
 
-            Log.Information($"GUID: {commandNumber}. Zakończono wywołanie command: {actionDecription} z parametrami: {parameters}");
+            Log.Information($"GUID: {commandNumber}. Query executed correctly: {actionDecription} with parameters: {parameters}");
 
         }
     }

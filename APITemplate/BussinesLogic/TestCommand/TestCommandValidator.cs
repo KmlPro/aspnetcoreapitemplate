@@ -14,7 +14,7 @@ namespace APITemplate.BussinesLogic.TestCommand
             ValidationResult vr = new ValidationResult();
             if (string.IsNullOrEmpty(command.TestCommandValue))
             {
-                vr.Messages.Add("TestCommandValue nie może być null or empty");
+                vr.Messages.Add("TestCommandValue cannot be null");
             }
 
             return vr;

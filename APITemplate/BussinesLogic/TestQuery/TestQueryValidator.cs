@@ -14,7 +14,7 @@ namespace APITemplate.BussinesLogic.TestQuery
             ValidationResult vr = new ValidationResult();
             if (string.IsNullOrEmpty(query.TestValue))
             {
-                vr.Messages.Add("TestValue nie może być null or empty");
+                vr.Messages.Add("TestValue cannnot be empty");
             }
 
             return vr;
