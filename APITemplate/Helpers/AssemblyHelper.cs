@@ -26,7 +26,7 @@ namespace APITemplate.Helpers
         {
             Type type = action.GetType();
             PropertyInfo[] props = type.GetProperties();
-            string str = "{";
+            string str = "";
             foreach (var prop in props)
             {
                 str += (prop.Name + ":" + prop.GetValue(action)) + ",";

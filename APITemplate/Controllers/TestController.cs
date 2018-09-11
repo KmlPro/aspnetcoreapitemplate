@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using APITemplate._Infrastructure.Commands.Interfaces;
 using APITemplate._Infrastructure.Queries.Interfaces;
-using APITemplate.BussinesLogic.TestCommand;
-using APITemplate.BussinesLogic.TestQuery;
+using APITemplate.BusinessLogic.TestCommand;
+using APITemplate.BusinessLogic.TestQuery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

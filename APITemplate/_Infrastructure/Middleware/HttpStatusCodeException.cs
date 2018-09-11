@@ -9,23 +9,20 @@ namespace APITemplate._Infrastructure.Middleware
     public class HttpStatusCodeException : Exception
     {
         public int StatusCode { get; set; }
-        public string ContentType { get; set; } = @"text/plain";
+        public string ContentType { get; set; } = @"application/json";
 
-        public HttpStatusCodeException(int statusCode)
+        public List<string> Errors { get; set; }
+
+        public HttpStatusCodeException(int statusCode, string message)
         {
             this.StatusCode = statusCode;
+            this.Errors = new List<string> { message };
         }
 
-        public HttpStatusCodeException(int statusCode, string message) : base(message)
+        public HttpStatusCodeException(int statusCode, List<string> errors)
         {
             this.StatusCode = statusCode;
-        }
-
-        public HttpStatusCodeException(int statusCode, Exception inner) : this(statusCode, inner.ToString()) { }
-
-        public HttpStatusCodeException(int statusCode, JObject errorObject) : this(statusCode, errorObject.ToString())
-        {
-            this.ContentType = @"application/json";
+            this.Errors = errors;
         }
     }
 }

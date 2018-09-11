@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITemplate.BussinesLogic.TestQuery
+namespace APITemplate.BusinessLogic.TestQuery
 {
     public class TestQueryResult : IQueryResult
     {

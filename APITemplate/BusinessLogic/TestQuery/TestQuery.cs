@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITemplate.BussinesLogic.TestQuery
+namespace APITemplate.BusinessLogic.TestQuery
 {
     [Description("Test query description")]
     public class TestQuery : IQuery

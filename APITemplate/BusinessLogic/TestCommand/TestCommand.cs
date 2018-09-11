@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITemplate.BussinesLogic.TestCommand
+namespace APITemplate.BusinessLogic.TestCommand
 {
     [Description("Test command description")]
     public class TestCommand : ICommand

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITemplate.BussinesLogic.TestCommand
+namespace APITemplate.BusinessLogic.TestQuery
 {
-    public class TestCommandValidator : IValidator<TestCommand>
+    public class TestQueryValidator : IValidator<TestQuery>
     {
-        public ValidationResult Validate(TestCommand command)
+        public ValidationResult Validate(TestQuery query)
         {
             ValidationResult vr = new ValidationResult();
-            if (string.IsNullOrEmpty(command.TestCommandValue))
+            if (string.IsNullOrEmpty(query.TestValue))
             {
-                vr.Messages.Add("TestCommandValue cannot be null");
+                vr.Messages.Add("TestValue cannnot be empty");
             }
 
             return vr;

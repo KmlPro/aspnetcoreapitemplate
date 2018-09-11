@@ -100,7 +100,7 @@ namespace APITemplate
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API e-usługi e-wnioski");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API template");
                 c.RoutePrefix = string.Empty;
             });
 

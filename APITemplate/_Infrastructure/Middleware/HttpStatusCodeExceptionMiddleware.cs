@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ namespace APITemplate._Infrastructure.Middleware
     public class HttpStatusCodeExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private static readonly ILogger _logger = Log.ForContext<HttpStatusCodeExceptionMiddleware>();
 
         public HttpStatusCodeExceptionMiddleware(RequestDelegate next)
         {
@@ -28,7 +28,7 @@ namespace APITemplate._Infrastructure.Middleware
             {
                 if (context.Response.HasStarted)
                 {
-                    _logger.Warning("The response has already started, the http status code middleware will not be executed.");
+                    Log.Warning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
 
@@ -36,7 +36,19 @@ namespace APITemplate._Infrastructure.Middleware
                 context.Response.StatusCode = ex.StatusCode;
                 context.Response.ContentType = ex.ContentType;
 
-                await context.Response.WriteAsync(ex.Message);
+                await context.Response.WriteAsync(JsonConvert.SerializeObject(new { ex.Errors }));
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                context.Response.Clear();
+                context.Response.StatusCode = 500;
+                context.Response.ContentType = @"application/json";
+
+                Log.Fatal($"Unexpected error at pipeline executing. Exception: '{ex}'");
+
+                await context.Response.WriteAsync(JsonConvert.SerializeObject("Unexpected error at pipeline executing"));
 
                 return;
             }
