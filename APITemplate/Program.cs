@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using APITemplate._Infrastructure;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,13 +22,7 @@ namespace APITemplate
                   .AddJsonFile("appsettings.json")
                   .Build();
 
-            //to-do - create file with logs by envirovment  (dev/production)
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "/logs", $"service-.log");
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(path, rollingInterval: RollingInterval.Day, shared: true)
-                .CreateLogger();
+            Log.Logger = LoggerHelper.CreateLoggerConfiguration();
 
             try
             {

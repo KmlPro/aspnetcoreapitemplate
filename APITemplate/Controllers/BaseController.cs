@@ -48,8 +48,10 @@ namespace APITemplate.Controllers
                 Log.Fatal($"Internal server error on query: '{actionDecription}' with parameters: '{parameters}'. Exception: '{ex}'");
 #if DEBUG
                 throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Exception: '{ex}'.");
-#endif
+#else
                 throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Internal Server Error. Please contact with service developer");
+#endif
+
             }
 
             Log.Information($"GUID: '{queryNumber}'. Query executed correctly: '{actionDecription}' with parameters: '{parameters}'");
@@ -79,8 +81,10 @@ namespace APITemplate.Controllers
                 Log.Fatal($"Internal server error on query: '{actionDecription}' with parameters: '{parameters}'. Exception: '{string.Join(" ,", ex.InnerException.ToString())}'");
 #if DEBUG
                 throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Exception: '{ex}'.");
-#endif
+#else
                 throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, $"Internal Server Error. Please contact with service developer");
+#endif
+
             }
 
             Log.Information($"GUID: '{commandNumber}'. Query executed correctly: '{actionDecription}' with parameters: '{parameters}'");
