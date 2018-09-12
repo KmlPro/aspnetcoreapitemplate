@@ -28,7 +28,7 @@ namespace APITemplate._Infrastructure
 #else
             return new LoggerConfiguration()
              .MinimumLevel.Information()
-             .WriteTo.File(LoggerHelper.GetPath(), rollingInterval: RollingInterval.Day, shared: true)
+             .WriteTo.File(_GetPath(), rollingInterval: RollingInterval.Day, shared: true)
              .CreateLogger();
 #endif
         }
