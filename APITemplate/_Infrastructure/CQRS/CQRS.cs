@@ -93,7 +93,7 @@ namespace APITemplate._Infrastructure.ICQRS
                 exceptionMessage = $"Exception: '{exception}'.";
             }
 
-            Log.Fatal($"GUID: '{actionId}'. Error while executing ['{typeName}'] with parameters: '{parameters}'.\r\n\Exception: '{exception}'");
+            Log.Fatal($"GUID: '{actionId}'. Error while executing ['{typeName}'] with parameters: '{parameters}'.\r\n Exception: '{exception}'");
             throw new HttpStatusCodeException(StatusCodes.Status500InternalServerError, exceptionMessage);
         }
     }
