@@ -17,11 +17,6 @@ namespace APITemplate
     {
         public static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                  .SetBasePath(Directory.GetCurrentDirectory())
-                  .AddJsonFile("appsettings.json")
-                  .Build();
-
             Log.Logger = LoggerHelper.CreateLoggerConfiguration();
 
             try
@@ -40,9 +35,17 @@ namespace APITemplate
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-                .UseSerilog()
-                .Build();
+           WebHost.CreateDefaultBuilder(args)
+           .ConfigureAppConfiguration(ConfigConfiguration)
+           .UseStartup<Startup>()
+               .UseSerilog()
+               .Build();
+
+        static void ConfigConfiguration(WebHostBuilderContext ctx, IConfigurationBuilder config)
+        {
+            config.SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{ctx.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+        }
     }
 }

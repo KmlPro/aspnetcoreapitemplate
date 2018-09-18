@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using APITemplate._Infrastructure.Commands;
 using APITemplate._Infrastructure.Commands.Interfaces;
+using APITemplate._Infrastructure.Extension;
 using APITemplate._Infrastructure.Middleware;
 using APITemplate._Infrastructure.Queries;
 using APITemplate._Infrastructure.Queries.Interfaces;
@@ -40,45 +41,7 @@ namespace APITemplate
                 c.SwaggerDoc("v1", new Info { Title = "APITemplate", Version = "v1", Description = "Simple template with CQRS patterns" });
             });
 
-            services.Scan(
-                x =>
-                {
-                    var entryAssembly = Assembly.GetEntryAssembly();
-                    var referencedAssemblies = entryAssembly.GetReferencedAssemblies().Select(Assembly.Load);
-                    var assemblies = new List<Assembly> { entryAssembly }.Concat(referencedAssemblies);
-
-                    x.FromAssemblies(assemblies)
-                        .AddClasses(classes => classes.AssignableTo(typeof(ICommand)))
-                        .AddClasses(classes => classes.AssignableTo(typeof(IQuery)))
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime();
-
-                    x.FromAssemblies(assemblies)
-                        .AddClasses(classes => classes.Where(z => z.Name.EndsWith("QueryValidator")))
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime();
-
-
-                    x.FromAssemblies(assemblies)
-                        .AddClasses(classes => classes.Where(z => z.Name.EndsWith("QueryHandler")))
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime();
-
-                    x.FromAssemblies(assemblies)
-                        .AddClasses(classes => classes.Where(z => z.Name.EndsWith("CommandValidator")))
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime();
-
-
-                    x.FromAssemblies(assemblies)
-                        .AddClasses(classes => classes.Where(z => z.Name.EndsWith("CommandHandler")))
-                        .AsImplementedInterfaces()
-                        .WithTransientLifetime();
-                });
-
-            services.AddTransient<ICommandBus, CommandBus>();
-            services.AddTransient<IQueryBus, QueryBus>();
-
+            services.RegisterCQRSInstances();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

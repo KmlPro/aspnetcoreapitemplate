@@ -10,7 +10,7 @@ namespace APITemplate.BusinessLogic.TestCommand
     [Description("Test command description")]
     public class TestCommand : ICommand
     {
-        public string TestCommandValue;
+        public string TestCommandValue { get; set; }
 
         public TestCommand(string testCommandValue)
         {

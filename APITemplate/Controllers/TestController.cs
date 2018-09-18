@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APITemplate._Infrastructure.Commands.Interfaces;
+using APITemplate._Infrastructure.ICQRS;
 using APITemplate._Infrastructure.Queries.Interfaces;
 using APITemplate.BusinessLogic.TestCommand;
 using APITemplate.BusinessLogic.TestQuery;
@@ -13,10 +14,12 @@ namespace APITemplate.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : BaseController
+    public class TestController : ControllerBase
     {
-        public TestController(IQueryBus queryBus, ICommandBus commandBus) : base(queryBus, commandBus)
+        private readonly ICQRS _cqrs;
+        public TestController(ICQRS cQRS)
         {
+            this._cqrs = cQRS;
         }
 
         [HttpGet]
@@ -24,7 +27,7 @@ namespace APITemplate.Controllers
         public ActionResult<string> Get(string inputValue)
         {
             TestQuery query = new TestQuery(inputValue);
-            var result = ExecuteQuery<TestQuery, TestQueryResult>(query);
+            var result = _cqrs.ExecuteQuery<TestQuery, TestQueryResult>(query);
           
             return result.TestQueryResultValue;
         }
@@ -34,7 +37,7 @@ namespace APITemplate.Controllers
         public ActionResult TryCommand(string inputValue)
         {
             TestCommand query = new TestCommand(inputValue);
-            ExecuteCommand<TestCommand>(query);
+            _cqrs.ExecuteCommand<TestCommand>(query);
 
             return Ok();
         }

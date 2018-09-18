@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="_Infrastructure\CQRS\" />
+    <Folder Include="_Infrastructure\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -42,6 +42,12 @@ namespace APITemplate._Infrastructure.Middleware
             }
             catch (Exception ex)
             {
+                if (context.Response.HasStarted)
+                {
+                    Log.Warning("The response has already started, the http status code middleware will not be executed.");
+                    throw;
+                }
+
                 context.Response.Clear();
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = @"application/json";
@@ -55,7 +61,6 @@ namespace APITemplate._Infrastructure.Middleware
         }
     }
 
-    // Extension method used to add the middleware to the HTTP request pipeline.
     public static class HttpStatusCodeExceptionMiddlewareExtensions
     {
         public static IApplicationBuilder UseHttpStatusCodeExceptionMiddleware(this IApplicationBuilder builder)

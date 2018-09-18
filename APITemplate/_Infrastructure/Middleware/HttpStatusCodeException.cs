@@ -13,6 +13,11 @@ namespace APITemplate._Infrastructure.Middleware
 
         public List<string> Errors { get; set; }
 
+        public HttpStatusCodeException(int statusCode)
+        {
+            this.StatusCode = statusCode;
+        }
+
         public HttpStatusCodeException(int statusCode, string message)
         {
             this.StatusCode = statusCode;
