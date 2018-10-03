@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using APITemplate._Infrastructure.Commands.Interfaces;
-using APITemplate._Infrastructure.ICQRS;
-using APITemplate._Infrastructure.Queries.Interfaces;
-using APITemplate.BusinessLogic.TestCommand;
-using APITemplate.BusinessLogic.TestQuery;
-using Microsoft.AspNetCore.Http;
+﻿using APITemplate.CQRS.ICQRS;
+using APITemplate.Logic.TestCommand;
+using APITemplate.Logic.TestQuery;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APITemplate.Controllers

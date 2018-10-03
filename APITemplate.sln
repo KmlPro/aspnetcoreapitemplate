@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APITemplate", "APITemplate\APITemplate.csproj", "{521F5528-4522-40DA-B008-9ED62295BBBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APITemplate.CQRS", "APITemplate.CQRS\APITemplate.CQRS.csproj", "{2321D23B-0520-41BC-945B-4D1B139C734C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APITemplate.Logic", "APITemplate.Logic\APITemplate.Logic.csproj", "{606AFBC5-372C-4447-B239-85B0CD46DF28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{521F5528-4522-40DA-B008-9ED62295BBBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521F5528-4522-40DA-B008-9ED62295BBBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521F5528-4522-40DA-B008-9ED62295BBBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2321D23B-0520-41BC-945B-4D1B139C734C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2321D23B-0520-41BC-945B-4D1B139C734C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2321D23B-0520-41BC-945B-4D1B139C734C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2321D23B-0520-41BC-945B-4D1B139C734C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{606AFBC5-372C-4447-B239-85B0CD46DF28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{606AFBC5-372C-4447-B239-85B0CD46DF28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{606AFBC5-372C-4447-B239-85B0CD46DF28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{606AFBC5-372C-4447-B239-85B0CD46DF28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

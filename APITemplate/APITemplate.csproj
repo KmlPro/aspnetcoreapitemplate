@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
-    <Folder Include="_Infrastructure\CQRS\" />
-    <Folder Include="_Infrastructure\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +19,11 @@
     <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.1.2" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\APITemplate.CQRS\APITemplate.CQRS.csproj" />
+    <ProjectReference Include="..\APITemplate.Logic\APITemplate.Logic.csproj" />
   </ItemGroup>
 
 </Project>

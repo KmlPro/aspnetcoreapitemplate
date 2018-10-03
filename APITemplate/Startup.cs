@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using APITemplate._Infrastructure.Commands;
-using APITemplate._Infrastructure.Commands.Interfaces;
-using APITemplate._Infrastructure.Extension;
-using APITemplate._Infrastructure.Middleware;
-using APITemplate._Infrastructure.Queries;
-using APITemplate._Infrastructure.Queries.Interfaces;
-using APITemplate._Infrastructure.Validator.Interfaces;
+﻿using APITemplate._Infrastructure.Middleware;
+using APITemplate.CQRS.ICQRS;
+using APITemplate.CQRS.RegisterInstances;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace APITemplate
@@ -41,7 +29,9 @@ namespace APITemplate
                 c.SwaggerDoc("v1", new Info { Title = "APITemplate", Version = "v1", Description = "Simple template with CQRS patterns" });
             });
 
-            services.RegisterCQRSInstances();           
+            services.RegisterCQRSInstances();
+
+            services.AddTransient<ICQRS, _Infrastructure.CQRS>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

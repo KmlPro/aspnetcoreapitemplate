@@ -1,3 +1,11 @@
 .vs/
 APITemplate/bin/
 APITemplate/obj/
+*.cache
+*.dll
+*.txt
+*.cs
+*.targets
+*.props
+*.json
+*.pdb
