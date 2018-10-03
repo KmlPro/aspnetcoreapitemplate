@@ -1,9 +1,11 @@
 ﻿using APITemplate._Infrastructure.Middleware;
 using APITemplate.CQRS.ICQRS;
 using APITemplate.CQRS.RegisterInstances;
+using APITemplate.Model.DatabaseContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
@@ -29,9 +31,19 @@ namespace APITemplate
                 c.SwaggerDoc("v1", new Info { Title = "APITemplate", Version = "v1", Description = "Simple template with CQRS patterns" });
             });
 
+            #region Configure CQRS 
             services.RegisterCQRSInstances();
 
             services.AddTransient<ICQRS, _Infrastructure.CQRS>();
+
+            #endregion Configure CQRS
+
+            #region Configure DB 
+            services.AddDbContextPool<APITemplateContext>(options =>
+                    options.UseSqlServer(Configuration["APITemplateDB"]));
+
+            services.BuildServiceProvider().GetService<APITemplateContext>().Database.Migrate();
+            #endregion Configure DB 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\APITemplate.CQRS\APITemplate.CQRS.csproj" />
     <ProjectReference Include="..\APITemplate.Logic\APITemplate.Logic.csproj" />
+    <ProjectReference Include="..\APITemplate.Model\APITemplate.Model.csproj" />
   </ItemGroup>
 
 </Project>
