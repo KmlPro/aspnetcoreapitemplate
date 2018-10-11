@@ -9,3 +9,6 @@ APITemplate/obj/
 *.props
 *.json
 *.pdb
+APITemplate.CQRS/bin/
+APITemplate.CQRS/obj/
+APITemplate.Logic/bin/

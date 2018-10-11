@@ -1,5 +1,5 @@
 ﻿using APITemplate._Infrastructure.Middleware;
-using APITemplate.CQRS.ICQRS;
+using APITemplate.CQRS.MainInterface;
 using APITemplate.CQRS.RegisterInstances;
 using APITemplate.Model.DatabaseContext;
 using Microsoft.AspNetCore.Builder;
@@ -34,32 +34,28 @@ namespace APITemplate
             #region Configure CQRS 
             services.RegisterCQRSInstances();
 
-            services.AddTransient<ICQRS, _Infrastructure.CQRS>();
+            services.AddTransient<ICQRS, CQRS.Main.CQRS>();
 
             #endregion Configure CQRS
 
             #region Configure DB 
             services.AddDbContextPool<APITemplateContext>(options =>
                     options.UseSqlServer(Configuration["APITemplateDB"]));
-
-            services.BuildServiceProvider().GetService<APITemplateContext>().Database.Migrate();
             #endregion Configure DB 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (!env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseHttpStatusCodeExceptionMiddleware();
-            }
-            else
-            {
-                app.UseHttpStatusCodeExceptionMiddleware();
-                app.UseExceptionHandler();
                 app.UseHsts();
             }
+
+            app.UseHttpStatusCodeExceptionMiddleware();
+
+            UpdateDatabase(app);
+
 
             app.UseSwagger();
 
@@ -72,6 +68,19 @@ namespace APITemplate
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<APITemplateContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }

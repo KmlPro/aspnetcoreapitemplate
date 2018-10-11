@@ -1,4 +1,4 @@
-﻿using APITemplate.CQRS.ICQRS;
+﻿using APITemplate.CQRS.MainInterface;
 using APITemplate.Logic.TestCommand;
 using APITemplate.Logic.TestQuery;
 using Microsoft.AspNetCore.Mvc;

@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using APITemplate.Common.Exceptions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace APITemplate._Infrastructure.Middleware
@@ -28,15 +28,10 @@ namespace APITemplate._Infrastructure.Middleware
             {
                 if (context.Response.HasStarted)
                 {
-                    Log.Warning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
-
-                context.Response.Clear();
-                context.Response.StatusCode = ex.StatusCode;
-                context.Response.ContentType = ex.ContentType;
-
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(new { ex.Errors }));
+                WriteInternalLog(ex);
+                await WriteResponse(context, ex.StatusCode, ex.ContentType, ex.Errors);
 
                 return;
             }
@@ -44,20 +39,27 @@ namespace APITemplate._Infrastructure.Middleware
             {
                 if (context.Response.HasStarted)
                 {
-                    Log.Warning("The response has already started, the http status code middleware will not be executed.");
                     throw;
                 }
-
-                context.Response.Clear();
-                context.Response.StatusCode = 500;
-                context.Response.ContentType = @"application/json";
-
-                Log.Fatal($"Unexpected error at pipeline executing. Exception: '{ex}'");
-
-                await context.Response.WriteAsync(JsonConvert.SerializeObject("Unexpected error at pipeline executing"));
+                WriteInternalLog(ex);
+                await WriteResponse(context, 500, @"application/json", new List<string>() { "An unexpected error while handling the request" });
 
                 return;
             }
+        }
+
+        private async Task WriteResponse(HttpContext context, int statusCode, string contentType, List<string> errors)
+        {
+            context.Response.Clear();
+            context.Response.StatusCode = statusCode;
+            context.Response.ContentType = contentType;
+
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(new { errors }));
+        }
+
+        private void WriteInternalLog(Exception ex)
+        {
+            Log.Fatal($"An unexpected error while handling the request: '{ex}'");
         }
     }
 
